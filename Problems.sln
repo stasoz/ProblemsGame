@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problems", "Problems.csproj", "{3453E09A-4724-9AA8-0AE8-2D88D70E2B0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problems.Plugins", "Problems.Plugins.csproj", "{261A39D1-8BA3-789B-368B-F1631FF2DE6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problems.Editor.Plugins", "Problems.Editor.Plugins.csproj", "{903317DC-4280-6FDC-D794-F1BD9B6FD297}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problems.Editor", "Problems.Editor.csproj", "{5C948AF8-91F4-91E2-A374-9D47BD2C83E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,8 +29,15 @@ Global
 		{903317DC-4280-6FDC-D794-F1BD9B6FD297}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{903317DC-4280-6FDC-D794-F1BD9B6FD297}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{903317DC-4280-6FDC-D794-F1BD9B6FD297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C948AF8-91F4-91E2-A374-9D47BD2C83E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C948AF8-91F4-91E2-A374-9D47BD2C83E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C948AF8-91F4-91E2-A374-9D47BD2C83E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C948AF8-91F4-91E2-A374-9D47BD2C83E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3219723-75A8-4DED-A54A-C095F7CAD6CE}
 	EndGlobalSection
 EndGlobal

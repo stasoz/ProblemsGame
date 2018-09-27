@@ -4900,14 +4900,6 @@
             must be defined in the "config.xml" file.
             </summary>
     </member>
-    <member name="M:Vuforia.EditorClasses.PlayerSettingsValidator.ValidatePlayerSettings(System.Boolean)">
-      <summary>
-            Validate Player Settings for the platform(s) supported by Vuforia (currently active or all platforms)
-            Validation should be done when Vuforia is enabled in the Player Settings.
-            </summary>
-      <param name="validateAllTargets">if true will do the validation for all the supported platforms</param>
-      <returns>result of the validation containing build message and validity flag</returns>
-    </member>
     <member name="T:Vuforia.EditorClasses.SerializedCylinderTarget">
       <summary>
             This class provides utility properties to a serialized object
@@ -4917,11 +4909,6 @@
     <member name="M:Vuforia.EditorClasses.SerializedCylinderTarget.GetBehaviours">
       <summary>
             Get all behaviours that are edited by the serialized object
-            </summary>
-    </member>
-    <member name="P:Vuforia.EditorClasses.SerializedDataSetTrackable.ExtendedTracking">
-      <summary>
-            Defines whether extended tracking should be enabled for this target
             </summary>
     </member>
     <member name="M:Vuforia.EditorClasses.SerializedDataSetTrackable.GetDataSetName">
@@ -5123,17 +5110,6 @@
             Get all behaviours that are edited by the serialized object
             </summary>
     </member>
-    <member name="T:Vuforia.EditorClasses.SerializedWord">
-      <summary>
-            This class provides utility properties to a serialized object
-            targeting a WordBehaviour
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.SerializedWord.GetBehaviours">
-      <summary>
-            Get all behaviours that are edited by the serialized object
-            </summary>
-    </member>
     <member name="T:Vuforia.EditorClasses.ObjectTargetEditor">
       <summary>
             Editor class for ObjectTargetBehaviours
@@ -5284,31 +5260,6 @@
             Unity "Help" menu.
             </summary>
     </member>
-    <member name="T:Vuforia.EditorClasses.TextRecoEditor">
-      <summary>
-            Editor for the TextRecoBehaviour
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.TextRecoEditor.EditorConfigureTarget(Vuforia.TextRecoBehaviour)">
-      <summary>
-            Configure the TextReco in this custom editor.
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.TextRecoEditor.OnEnable">
-      <summary>
-            Executed new TextRecoBehaviour is instantiated in the scene
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.TextRecoEditor.OnInspectorGUI">
-      <summary>
-            Draws a custom UI for the text reco behaviour inspector
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.TextRecoEditor.OnSceneGUI">
-      <summary>
-            Renders a label to visualize the TextRecoBehaviour
-            </summary>
-    </member>
     <member name="T:Vuforia.EditorClasses.UnityPlayModeEditorUtility">
       <summary>
             This class implements to IPlayModeEditorUtility to provide various editor functionality (popups, reading xml files)
@@ -5400,26 +5351,6 @@
     <member name="M:Vuforia.EditorClasses.VuMarkEditor.OnInspectorGUI">
       <summary>
             Lets the user choose a VuMark-Template from a drop down list. 
-            </summary>
-    </member>
-    <member name="T:Vuforia.EditorClasses.WordEditor">
-      <summary>
-            Editor for WordBehaviours
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.WordEditor.EditorConfigureTarget(Vuforia.WordBehaviour,Vuforia.EditorClasses.SerializedWord)">
-      <summary>
-            Configure the Word in this custom editor.
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.WordEditor.OnEnable">
-      <summary>
-            Initializes the Word when it is drag-dropped into the scene
-            </summary>
-    </member>
-    <member name="M:Vuforia.EditorClasses.WordEditor.OnInspectorGUI">
-      <summary>
-            Draws the inspector for Word prefab
             </summary>
     </member>
     <member name="T:PlatformChangeObserver">

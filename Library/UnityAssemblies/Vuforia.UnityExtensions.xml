@@ -10,12 +10,103 @@
             of an ARCamera.
             </summary>
     </member>
+    <member name="T:Vuforia.IlluminationManager">
+      <summary>
+            Provides data on the estimated illumination values in the current frame
+            such as illumination intensity or ambient light color temperature
+            </summary>
+    </member>
+    <member name="P:Vuforia.IlluminationManager.AmbientIntensity">
+      <summary>
+            The current ambient intensity for the scene measured in Lumens. The value
+            may not be available on all platforms. When the value is unavailable
+            NULL will be returned.
+            </summary>
+    </member>
+    <member name="P:Vuforia.IlluminationManager.AmbientColorTemperature">
+      <summary>
+            The current color temperature for the scene measured in Kelvin. The value
+            may not be available on all platforms. When the value is unavailable
+            NULL will be returned.
+            </summary>
+    </member>
+    <member name="T:Vuforia.PreviewModelTurnOffBehaviour">
+      <summary>
+            A utility behaviour to disable rendering of an editor preview model at run time.
+            </summary>
+    </member>
     <member name="T:Vuforia.PositionalDeviceTracker">
       <summary>
             The PositionalDeviceTracker tracks a device in the world by relying on
             6DOF sensor tracking, delivering both position and rotation. The
             PositionalDeviceTracker publishes DeviceTrackableResults that are
             are in world coordinate system and use a physical unit (meter).
+            </summary>
+    </member>
+    <member name="M:Vuforia.PositionalDeviceTracker.Reset">
+      <summary>
+            Reset the tracker
+            On some platforms a new world coordinate system may be created
+            with the device's current position and orientation as the origin.
+            On some platforms the underlying Vuforia Fusion provider may also be reset.
+            Any internal data will be destroyed.
+            All created anchors will be destroyed. It is recommended to call ResetAnchors() afterwards.
+            <returns>true if the positional device tracker correctly reset</returns></summary>
+    </member>
+    <member name="M:Vuforia.PositionalDeviceTracker.CreateMidAirAnchor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion)">
+      <summary>
+            Creates an Anchor Trackable for MidAir using the Transform of the pose (position/rotation) where it should be anchored.
+            </summary>
+      <remarks>
+            When using VUFORIA_SENSOR_FUSION, Anchors created with this method are not guaranteed to receive any
+            further position updates after the device tracker recovers from a limited tracking state.
+            </remarks>
+      <param name="name">The logical name of the anchor. This must be unique among all created anchors.</param>
+      <param name="transform">The transform of the pose at which the anchor will be created</param>
+      <returns>Anchor that can be used to configure an AnchorBehaviour</returns>
+    </member>
+    <member name="M:Vuforia.PositionalDeviceTracker.CreatePlaneAnchor(System.String,Vuforia.HitTestResult)">
+      <summary>
+            Creates an Anchor Trackable on a Plane using the HitTestResult of a previous SmartTerrain.HitTest 
+            of the (position/rotation) where it should be anchored.
+            </summary>
+      <param name="name">The logical name of the anchor. This must be unique among all created anchors.</param>
+      <param name="hitTestResult">The HitTestResult containing the pose at which the anchor will be created on a plane</param>
+      <returns>Anchor that can be used to configure an AnchorBehaviour</returns>
+    </member>
+    <member name="M:Vuforia.PositionalDeviceTracker.RegisterAnchorRemovedCallback(System.Action{Vuforia.Anchor})">
+      <summary>
+            Register for the event of when an Anchor is removed and no longer being tracked, for example after pause/resume in some cases
+            </summary>
+      <param name="onAnchorRemovedAction">
+      </param>
+    </member>
+    <member name="M:Vuforia.PositionalDeviceTracker.UnregisterAnchorRemovedCallback(System.Action{Vuforia.Anchor})">
+      <summary>
+            Unregister for the event of when an Anchor is removed and no longer being tracked, for example after pause/resume in some cases
+            </summary>
+      <param name="onAnchorRemovedAction">
+      </param>
+    </member>
+    <member name="M:Vuforia.PositionalDeviceTracker.ResetAnchors">
+      <summary>
+            Reset all anchors in the current scene. By default, the ContentPositioningBehaviour will delete all Anchors it has created.
+            If the ContentPositioningBehaviour is not use, the anchors must be dealt with explicitly by registering to the Callbacks
+            'RegisterAnchorRemovedCallback' and 'UnregisterAnchorRemovedCallback'
+            </summary>
+    </member>
+    <member name="M:Vuforia.AnchorBehaviour.ConfigureAnchor(Vuforia.Anchor)">
+      <summary>
+            Set the anchor that was created using the PositionalDeviceTracker.
+            This sets up the AnchorBehaviour so its pose will be updated
+            </summary>
+      <param name="anchor">
+      </param>
+    </member>
+    <member name="M:Vuforia.AnchorBehaviour.UnConfigureAnchor">
+      <summary>
+            Resets the AnchorBehaviour to an unconfigured state. It's unregistered from the trackable system
+            and its pose is no longer updated. It becomes unanchored.
             </summary>
     </member>
     <member name="T:Vuforia.GuideViewCameraBehaviour">
@@ -101,16 +192,6 @@
       <remarks> If the scene is scaled to a different unit it is
             necessary to define a custom camera offset in the same unit.</remarks>
     </member>
-    <member name="F:Vuforia.DigitalEyewearARController.GEARVR_VIEWER">
-      <summary>
-            Viewer name for integration with Oculus SDK
-            </summary>
-    </member>
-    <member name="F:Vuforia.DigitalEyewearARController.CARDBOARD_SDK_VIEWER">
-      <summary>
-            Viewer name for integration with Cardboard SDK
-            </summary>
-    </member>
     <member name="F:Vuforia.DigitalEyewearARController.DEFAULT_VR_FOV">
       <summary>
             Default field of view for handheld VR mode. This value will be used
@@ -140,16 +221,6 @@
     <member name="F:Vuforia.DigitalEyewearARController.StereoFramework.Vuforia">
       <summary>
             Vuforia SDK is used for stereo rendering
-            </summary>
-    </member>
-    <member name="F:Vuforia.DigitalEyewearARController.StereoFramework.Cardboard">
-      <summary>
-            Cardboard SDK is used for stereo rendering
-            </summary>
-    </member>
-    <member name="F:Vuforia.DigitalEyewearARController.StereoFramework.GearVR">
-      <summary>
-            Oculus SDK is used for stereo rendering
             </summary>
     </member>
     <member name="T:Vuforia.DigitalEyewearARController.SeeThroughConfiguration">
@@ -276,18 +347,6 @@
       <summary>
             Define which configuration is used for rendering on see-through eyewear.
             This value is only used when eyewear type is set to optical see-through.
-            </summary>
-    </member>
-    <member name="M:Vuforia.DigitalEyewearARController.EnableAutomaticFocusPointSelection(System.Boolean)">
-      <summary>
-            May be removed in future Vuforia versions!
-            This method can be used to toggle automatic setting of the focus plane on HoloLens.
-            It should only be called after Vuforia has started (e.g. VuforiaStartedCallback)
-            By default, this is set to true, and Vuforia will automatically set the focus plane to the last
-            detected target.
-            However, if an the focus plane should be set to a hologram significantly offset from a target,
-            this method should be used to disable automatic focus plane setting and it should be done from 
-            application code instead
             </summary>
     </member>
     <member name="M:Vuforia.DigitalEyewearARController.EnableWorldAnchorUsage(System.Boolean)">
@@ -510,6 +569,12 @@
             Destroys the internal GuideViewGameObject and makes sure that a 3D guideview object is returned to it's previous owner
             </summary>
     </member>
+    <member name="M:Vuforia.GuideViewRenderingBehaviour.DetachEvents">
+      <summary>
+            Deattaches the events from this instance to the guideview object.
+            Call before destroying
+            </summary>
+    </member>
     <member name="M:Vuforia.GuideViewRenderingBehaviour.Initialize(Vuforia.ModelTargetBehaviour)">
       <summary>
             Setup function that creates the necessary GuideView rendering components for the provided ModelTargetBehaviour
@@ -624,16 +689,33 @@
             Interactive is used to perform a hit test on manual input (touch, mouse)
             </summary>
     </member>
+    <member name="M:Vuforia.SmartTerrain.HitTest(UnityEngine.Vector2,System.Single,Vuforia.HitTestResult@)">
+      <summary>
+            Performs a hit test on assumed surfaces from  point on the image. The provided position must be in normalized
+            image space coordinates.
+            Default height is ignored on ARKit enabled devices.
+            </summary>
+      <param name="imageSpacePos">The screen position in normalized image space coordinates.</param>
+      <param name="defaultHeight">The height at which the device is being held over the Ground Plane.</param>
+      <param name="hitTestResult">The first Hit Test result in the list of results of intersecting with assumed surfaces.</param>
+      <returns>Returns true if any surface was intersected</returns>
+    </member>
+    <member name="M:Vuforia.SmartTerrain.HitTest(UnityEngine.Vector2,System.Single,Vuforia.HitTestResult[]@)">
+      <summary>
+            Performs a hit test on assumed surfaces from  point on the image. The provided position must be in normalized
+            image space coordinates.
+            Default height is ignored on ARKit enabled devices.
+            </summary>
+      <param name="imageSpacePos">The screen position in normalized image space coordinates.</param>
+      <param name="defaultHeight">The height at which the device is being held over the Ground Plane.</param>
+      <param name="hitTestResults">The first Hit Test result in the list of results of intersecting with assumed surfaces.</param>
+      <returns>Returns true if any surface was intersected</returns>
+    </member>
     <member name="T:Vuforia.AnchorStageBehaviour">
       <summary>
             Used to display position and real-world scale (1x1 meters) of a child content relative to a surface or point in space
             Has a fixed rotation and scale as planes currently can only be horizontal with real world scale. 
             1 Unity unit equals 1 meter.
-            </summary>
-    </member>
-    <member name="M:Vuforia.IHoloLensApiAbstraction.SetFocusPoint(UnityEngine.Vector3,UnityEngine.Vector3)">
-      <summary>
-            Sets the focus point, stablizing holograms in that area
             </summary>
     </member>
     <member name="M:Vuforia.IHoloLensApiAbstraction.SetWorldAnchor(Vuforia.TrackableBehaviour,Vuforia.VuforiaManager.TrackableIdPair)">
@@ -790,23 +872,112 @@
       <param name="callback">
       </param>
     </member>
+    <member name="M:Vuforia.DeviceTrackerARController.RegisterDevicePoseStatusChangedCallback(System.Action{Vuforia.TrackableBehaviour.Status,Vuforia.TrackableBehaviour.StatusInfo})">
+      <summary>
+            Register an action for the status changed callback.
+            This callback whenever the tracker status or status info changes. For example from "UNKNOWN" to "TRACKED",
+            </summary>
+      <param name="callback">
+      </param>
+    </member>
+    <member name="M:Vuforia.DeviceTrackerARController.UnregisterDevicePoseStatusChangedCallback(System.Action{Vuforia.TrackableBehaviour.Status,Vuforia.TrackableBehaviour.StatusInfo})">
+      <summary>
+            Unregister the Status change callback
+            </summary>
+      <param name="callback">
+      </param>
+    </member>
     <member name="T:Vuforia.TurnOffBehaviour">
       <summary>
             A utility behaviour to disable rendering of a game object at run time.
             </summary>
     </member>
-    <member name="T:Vuforia.TurnOffWordBehaviour">
+    <member name="T:Vuforia.FusionProviderType">
       <summary>
-            A utility behaviour to disable rendering of a word behaviour at run time.
+             Used when calling setAllowedFusionProviders() and getActiveFusionProvider()
+            
+             Vuforia Fusion is a capability, introduced with Vuforia 7, that is designed to provide
+             the best possible AR experience on a wide range of devices. Fusion solves the problem
+             of fragmentation in AR-enabling technologies, including cameras, sensors, chipsets,
+             and software frameworks such as ARKit, ARCore and Windows Holographic. It senses the
+             capabilities of the underlying device and fuses them with Vuforia features, allowing
+             developers to rely on a single Vuforia API for an optimal AR experience.
+            
+             The FusionProviderType enums provide advanced developers with a way to
+             control which technologies Fusion will use. Developers using these APIs should
+             be aware:
+               - of the functionality provided by the underlying platforms
+               - of the technology involved in enabling AR
+               - of the robustness of the various options
+               - that features such as GroundPlane will cease to work. ModelTargets will
+                 operate in a less robust manner if VUFORIA_VISION_ONLY is selected.
+            
+             The enum values are bit-fields, except INVALID_OPERATION, to be combined using
+             using the 'or' operation, and passed to setAllowedFusionProviders().
+             </summary>
+    </member>
+    <member name="F:Vuforia.FusionProviderType.INVALID_OPERATION">
+      <summary>
+            An invalid call has been made
+            
+            This value is returned when making a call to any of the FusionProvider
+            functions at an invalid time. It should not be used as part of setting
+            the allowed Fusion provider.
             </summary>
     </member>
-    <member name="T:Vuforia.IEditDataSetBehaviour">
+    <member name="F:Vuforia.FusionProviderType.VUFORIA_VISION_ONLY">
       <summary>
-            Interface for editing some properties of data set trackables.
+            Vision based tracking only
+            
+            Please note that not all Vuforia features are supported when using this
+            provider. See setAllowedFusionProviders() for more information.
             </summary>
-            These properties should be edited with care at runtime. It is 
-            necessary to define them right after Vuforia has started.
-        </member>
+    </member>
+    <member name="F:Vuforia.FusionProviderType.VUFORIA_SENSOR_FUSION">
+      <summary>
+            Use the Vuforia provided sensor fusion.
+            
+            Vuforia will try to make use of camera and IMU information to create a
+            tracking experience that, when compared to VUFORIA_VISION_ONLY,
+            is more robust to erratic motions and featureless environments
+            </summary>
+    </member>
+    <member name="F:Vuforia.FusionProviderType.PLATFORM_SENSOR_FUSION">
+      <summary>
+             Use the Platform-provided technology for Fusion
+            
+             Vuforia will try to make use of tracking services offered by the underlying
+             platfrom. Examples of this include ARKit on iOS, ARCore on Android, or
+             Windows Holographic on UWP.
+             </summary>
+    </member>
+    <member name="F:Vuforia.FusionProviderType.ALL">
+      <summary>
+            Directs Fusion to automatically select the best provider
+            
+            This is the default and directy Vuforia to select the best technology
+            available on the current device for Vuforia Fusion.
+            </summary>
+    </member>
+    <member name="F:Vuforia.FusionProviderType.OPTIMIZE_IMAGE_TARGETS_AND_VUMARKS">
+      <summary>
+            Optimize Fusion for use with Image Targets and VuMarks
+            
+            This mode is for applications using ImageTargets, CylinderTargets,
+            MultiTargets, ObjectTargets, VuMarks and UserDefinedTargets without
+            requiring usage of ModelTargets or SmartTerrain.
+            If the application was previously using the legacy ET tracking API with
+            your targets  this is the recommended setting.
+            </summary>
+    </member>
+    <member name="F:Vuforia.FusionProviderType.OPTIMIZE_MODEL_TARGETS_AND_SMART_TERRAIN">
+      <summary>
+             Optimize Fusion for use with Model Targets and SmartTerrain
+            
+             This mode is for applications that want to make use of Model Targets or
+             Smart Terrain.
+             </summary>
+    </member>
     <member name="T:Vuforia.MixedRealityController">
       <summary>
             The MixedRealityController provides a very simply interface to switch between different mixed reality modes.
@@ -1041,7 +1212,7 @@
             Set a filter for a 3rd party VR SDK
             </summary>
             Allows the list to be filtered for a specific 3rd party SDK. 
-            Known SDKs are "GEARVR" and "CARDBOARD".
+            Known SDK is "CARDBOARD".
             To return to the default list of viewers set the filter to the empty string.
         </member>
     <member name="M:Vuforia.IViewerParametersList.GetAllViewers">
@@ -1180,6 +1351,11 @@
     <member name="P:Vuforia.CameraDevice.Instance">
       <summary>
             Returns an instance of a CameraDevice (thread safe)
+            </summary>
+    </member>
+    <member name="M:Vuforia.CameraDevice.Init">
+      <summary>
+            Initializes the camera.
             </summary>
     </member>
     <member name="M:Vuforia.CameraDevice.Init(Vuforia.CameraDevice.CameraDirection)">
@@ -1630,6 +1806,11 @@
             Whether the video background image is mirrored horizontally
             </summary>
     </member>
+    <member name="P:Vuforia.VuforiaConfiguration.GenericVuforiaConfiguration.Version">
+      <summary>
+            Version of the Vuforia Unity Extension
+            </summary>
+    </member>
     <member name="P:Vuforia.VuforiaConfiguration.VideoBackgroundConfiguration.ClippingMode">
       <summary>
             Define type of clipping rendering beyond the video background
@@ -1686,6 +1867,14 @@
             This is only used when <see cref="P:Vuforia.VuforiaConfiguration.DeviceTrackerConfiguration.ModelTransformEnabled" /> is true.
             </summary>
     </member>
+    <member name="P:Vuforia.VuforiaConfiguration.DeviceTrackerConfiguration.FusionMode">
+      <summary>
+            Specifies which providers Vuforia Fusion is allowed to select from
+             
+            providerTypes is a single value created by or'ing together the desired
+            FusionProviderType values.
+            </summary>
+    </member>
     <member name="P:Vuforia.VuforiaConfiguration.Instance">
       <summary>
             Get singleton-instance at runtime
@@ -1718,7 +1907,7 @@
             Unregister a previously registered callback.
             </summary>
     </member>
-    <member name="P:Vuforia.VuforiaRuntime.HasInitialized">
+    <member name="P:Vuforia.VuforiaRuntime.InitializationState">
       <summary>
             Returns whether Vuforia has been initialized
             </summary>
@@ -2133,16 +2322,25 @@
     <member name="M:Vuforia.ObjectTarget.StartExtendedTracking">
       <summary>
             Start extended tracking. The Target can be tracked although it is not visible.
+            Extended tracking can't be used when device tracker is enabled.
+            DEPRECATED: This API has been deprecated. 
+            Please use DeviceTracker for similar extended tracking functionality
             </summary>
     </member>
     <member name="M:Vuforia.ObjectTarget.StopExtendedTracking">
       <summary>
             Stop extended tracking. Target will only be tracked when it is visible.
+            Extended tracking can't be used when device tracker is enabled.
+            DEPRECATED: This API has been deprecated. 
+            Please use DeviceTracker for similar extended tracking functionality
             </summary>
     </member>
     <member name="M:Vuforia.ObjectTarget.IsExtendedTrackingStarted">
       <summary>
             Query if extended tracking is started.
+            Extended tracking can't be used when device tracker is enabled. 
+            DEPRECATED: This API has been deprecated. 
+            Please use DeviceTracker for similar extended tracking functionality
             </summary>
     </member>
     <member name="M:Vuforia.ObjectTarget.GetSize">
@@ -2426,27 +2624,6 @@
             Unity extension.
             </summary>
     </member>
-    <member name="T:Vuforia.ITextRecoEventHandler">
-      <summary>
-            Interface for handling newly detected and lost word results
-            </summary>
-    </member>
-    <member name="M:Vuforia.ITextRecoEventHandler.OnInitialized">
-      <summary>
-            Called when the text reco system has finished initializing
-            </summary>
-    </member>
-    <member name="M:Vuforia.ITextRecoEventHandler.OnWordDetected(Vuforia.WordResult)">
-      <summary>
-            Called when a new word has been detected.
-            </summary>
-      <param name="word">The newly detected word</param>
-    </member>
-    <member name="M:Vuforia.ITextRecoEventHandler.OnWordLost(Vuforia.Word)">
-      <summary>
-            Called when a word is not tracked anymore
-            </summary>
-    </member>
     <member name="T:Vuforia.IUserDefinedTargetEventHandler">
       <summary>
             An interface for handling User Defined Target building events.
@@ -2485,12 +2662,12 @@
     </member>
     <member name="M:Vuforia.StateManager.GetActiveTrackableBehaviours">
       <summary>
-            Returns the TrackableBehaviours currently being tracked except Words
+            Returns the TrackableBehaviours currently being tracked
             </summary>
     </member>
     <member name="M:Vuforia.StateManager.GetTrackableBehaviours">
       <summary>
-            Returns all currently instantiated TrackableBehaviours except Words
+            Returns all currently instantiated TrackableBehaviours
             </summary>
     </member>
     <member name="M:Vuforia.StateManager.DestroyTrackableBehavioursForTrackable(Vuforia.Trackable,System.Boolean)">
@@ -2503,18 +2680,20 @@
             Removes destroyed behaviours from trackable list and associates newly created behaviours 
             with trackables
             </summary>
-            This affects all types of trackables, including Words and VuMarks
+            This affects all types of trackables, including VuMarks
         </member>
-    <member name="M:Vuforia.StateManager.GetWordManager">
-      <summary>
-            Returns the word manager instance that can be used to access
-            all currently tracked words from TextRecognition
-            </summary>
-    </member>
     <member name="M:Vuforia.StateManager.GetVuMarkManager">
       <summary>
             Returns the VuMark manager instance that can be used to access
             all available VuMark-templates and all currently tracked VuMarks.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:Vuforia.StateManager.GetIlluminationManager">
+      <summary>
+            Returns the IlluminationManager which provides data
+            on estimated illumination of the current frame
             </summary>
       <returns>
       </returns>
@@ -2730,9 +2909,12 @@
             Enables/disables persistent extended tracking
             In persistent extended tracking mode, the environment map will only
             ever be reset when the developer calls resetExtendedTracking().
+            Persistent extended tracking can't be used when device tracker is enabled.
             This function will return true if persistent extended tracking
             was set successfully (or was already set to the specified value)
             and false otherwise.
+            DEPRECATED: This API has been deprecated. 
+            Please use DeviceTracker for similar extended tracking functionality
             </summary>
     </member>
     <member name="M:Vuforia.ObjectTracker.ResetExtendedTracking">
@@ -2740,8 +2922,11 @@
             Resets environment map for extended tracking
             Environment map can only be reset by the developer if persistent
             extended tracking is enabled and if the tracker is stopped.
+            Reset extended tracking can't be used when device tracker is enabled.
             This function will return true if environment map was reset
             successfully and false otherwise.
+            DEPRECATED: This API has been deprecated. 
+            Please use DeviceTracker for similar extended tracking functionality
             </summary>
     </member>
     <member name="T:Vuforia.MultiTarget">
@@ -2810,11 +2995,6 @@
             Returns false if the hint is unknown or deprecated.
             </summary>
     </member>
-    <member name="M:Vuforia.VuforiaUnity.GetProjectionGL(System.Single,System.Single,UnityEngine.ScreenOrientation)">
-      <summary>
-            Returns the Vuforia projection matrix
-            </summary>
-    </member>
     <member name="M:Vuforia.VuforiaUnity.OnPause">
       <summary>
             Executes AR-specific tasks upon pausing the Unity application
@@ -2862,15 +3042,9 @@
             center (world center changes during runtime).
             </summary>
     </member>
-    <member name="F:Vuforia.VuforiaARController.WorldCenterMode.CAMERA">
+    <member name="F:Vuforia.VuforiaARController.WorldCenterMode.DEVICE">
       <summary>
-            Do not define a world center but only move Trackables with respect
-            to a fixed camera.
-            </summary>
-    </member>
-    <member name="F:Vuforia.VuforiaARController.WorldCenterMode.DEVICE_TRACKING">
-      <summary>
-            VR-mode: the world center is defined by device tracking
+            The device/camera is considered the world center, trackables are positioned with respect to it.
             </summary>
     </member>
     <member name="P:Vuforia.VuforiaARController.WorldCenterModeSetting">
@@ -2901,11 +3075,24 @@
             If Vuforia has started successfully
             </summary>
     </member>
+    <member name="M:Vuforia.VuforiaARController.RegisterBeforeVuforiaTrackersInitializedCallback(System.Action)">
+      <summary>
+            Register for a callback that is invoked even before Vuforia has initialized the trackers.
+            This should be used in particular when override the fusion mode in the configuration.
+            Should be called from an Awake() method to not miss the exact callback time between the two.
+            More than one callback can be registered.
+            </summary>
+    </member>
     <member name="M:Vuforia.VuforiaARController.RegisterVuforiaInitializedCallback(System.Action)">
       <summary>
             Register for a callback that is invoked after Vuforia has initialized and before the camera has started.
             Should be called from an Awake() method to not miss the exact callback time between the two.
             More than one callback can be registered.
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaARController.UnregisterBeforeVuforiaTrackersInitializedCallback(System.Action)">
+      <summary>
+            Unregister a previously registered callback.
             </summary>
     </member>
     <member name="M:Vuforia.VuforiaARController.UnregisterVuforiaInitializedCallback(System.Action)">
@@ -3197,8 +3384,7 @@
       <summary>
             Tells Vuforia where the texture id to use for updating video background data.
             The native texture ID needs to be passed in as a separate parameter.
-            When using multihreaded rendering, in particular when also using the Oculus SDK
-            on the GearVR, this texture ID needs to be resolved in an Awake method
+            When using multihreaded rendering this texture ID needs to be resolved in an Awake method
             (texture.GetNativeTexturePtr())
             </summary>
     </member>
@@ -3206,8 +3392,7 @@
       <summary>
             Tells Vuforia the texture pointer to use for updating video background data.
             The native texture pointer needs to be passed in as a separate parameter.
-            When using multihreaded rendering, in particular when also using the Oculus SDK
-            on the GearVR, this texture ID needs to be resolved in an Awake method
+            When using multihreaded rendering this texture ID needs to be resolved in an Awake method
             (texture.GetNativeTexturePtr())
             </summary>
     </member>
@@ -3325,6 +3510,16 @@
             If the web cam is enabled.
             </summary>
     </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.ScreenSpaceToCameraFrameCoordinatesNormalized(UnityEngine.Vector2,UnityEngine.Rect)">
+      <summary>
+            Calculates a normalized position in camera frame coordinates based on the current orientation and background config for given screen-space coordinates
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.ViewPortToCameraFrameCoordinatesNormalized(UnityEngine.Vector2,UnityEngine.Rect)">
+      <summary>
+            Calculates a normalized position in camera frame coordinates based on the current orientation and background config for given Unity ViewPort coordinates
+            </summary>
+    </member>
     <member name="M:Vuforia.VuforiaRuntimeUtilities.ScreenSpaceToCameraFrameCoordinates(UnityEngine.Vector2,UnityEngine.Rect,System.Boolean,Vuforia.CameraDevice.VideoModeData)">
       <summary>
             Calculates a position in camera frame coordinates based on the current orientation and background config for a given screen-space position
@@ -3347,12 +3542,6 @@
             Used for region of interest calculations for text tracking
             </summary>
     </member>
-    <member name="M:Vuforia.VuforiaRuntimeUtilities.CalculateRectFromLandscapeLeftCorners(UnityEngine.Vector2,UnityEngine.Vector2,System.Boolean)">
-      <summary>
-            Creates a rect from given corner points, where "top", "left", "bottom" and "right" are in respect to landscape left orientation
-            Used for region of interest calculations for text tracking
-            </summary>
-    </member>
     <member name="M:Vuforia.VuforiaRuntimeUtilities.DisableSleepMode">
       <summary>
             The device screen stays turned on and bright 
@@ -3366,6 +3555,30 @@
     <member name="M:Vuforia.VuforiaRuntimeUtilities.MatrixIsNaN(UnityEngine.Matrix4x4)">
       <summary>
             Check if a matrix is NaN. return true if any element is NaN, false otherwise.
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.SetAllowedFusionProviders(Vuforia.FusionProviderType)">
+      <summary>
+            Specifies which providers Vuforia Fusion is allowed to select from
+            
+            This function must be called before initializing Vuforia. If the call is successful,
+            it returns the value of providerTypes which was passed in.
+            
+            If called after initializing Vuforia, the function returns INVALID_OPERATION.
+            
+            providerTypes is a single value created by or'ing together the desired
+            FusionProviderType enum values.
+            
+            Note: The enum value INVALID_OPERATION should not be used when setting up
+            the providerTypes.
+            </summary>
+    </member>
+    <member name="M:Vuforia.VuforiaRuntimeUtilities.GetActiveFusionProvider">
+      <summary>
+            Returns which provider Vuforia Fusion has selected to use
+            
+            This function must be called after initializing Vuforia. If called before
+            initializing Vuforia, the function returns INVALID_OPERATION.
             </summary>
     </member>
     <member name="T:Vuforia.SurfaceUtilities">
@@ -3642,45 +3855,6 @@
             Returns the ImageTargets currently enabled for tracking.
             </summary>
     </member>
-    <member name="T:Vuforia.TextRecoBehaviour">
-      <summary>
-            This is the main behaviour class that encapsulates text recognition behaviour.
-            It just has to be added to a Vuforia-enabled Unity scene and will initialize the text tracker with the configured word list.
-            Events for newly recognized or lost words will be called on registered ITextRecoEventHandlers
-            </summary>
-    </member>
-    <member name="M:Vuforia.TextRecoBehaviour.RegisterTextRecoEventHandler(Vuforia.ITextRecoEventHandler)">
-      <summary>
-            This method registers a new TextReco event handler.
-            These handlers are called after all trackables have been updated for this frame.
-            </summary>
-    </member>
-    <member name="M:Vuforia.TextRecoBehaviour.UnregisterTextRecoEventHandler(Vuforia.ITextRecoEventHandler)">
-      <summary>
-            This method unregisters a TextReco event handler.
-            Returns "false" if event handler does not exist.
-            </summary>
-    </member>
-    <member name="T:Vuforia.TextTracker">
-      <summary>
-            This class handles Text Tracking and defining the detection and tracking area at runtime
-            </summary>
-    </member>
-    <member name="P:Vuforia.TextTracker.WordList">
-      <summary>
-            Get the word list used for tracking text
-            </summary>
-    </member>
-    <member name="M:Vuforia.TextTracker.SetRegionOfInterest(UnityEngine.Rect,UnityEngine.Rect)">
-      <summary>
-            Defines the areas of the image in screen coordinates where text can be detected and tracked.
-            </summary>
-    </member>
-    <member name="M:Vuforia.TextTracker.GetRegionOfInterest(UnityEngine.Rect@,UnityEngine.Rect@)">
-      <summary>
-            Returns the areas of the image in screen coordinates where text can be detected and tracked.
-            </summary>
-    </member>
     <member name="T:Vuforia.Trackable">
       <summary>
             The base class behaviour for all trackable types in Vuforia.
@@ -3708,35 +3882,84 @@
             The tracking status of the TrackableBehaviour.
             </summary>
     </member>
+    <member name="F:Vuforia.TrackableBehaviour.Status.NO_POSE">
+      <summary>
+            Pose for the trackable could not be delivered.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.Status.NOT_FOUND">
+      <summary>
+            Pose for the trackable could not be delivered.
+            This is obsolete, please use NO_POSE instead.
+            </summary>
+    </member>
     <member name="F:Vuforia.TrackableBehaviour.Status.UNKNOWN">
       <summary>
-            The state of the TrackableResult is unknown
+            Pose for the trackable could not be delivered.
+            This is obsolete, please use NO_POSE instead.
             </summary>
     </member>
     <member name="F:Vuforia.TrackableBehaviour.Status.UNDEFINED">
       <summary>
-            The state of the TrackableResult is not defined (it does not have a state)
+            Pose for the trackable could not be delivered.
+            This is obsolete, please use NO_POSE instead.
             </summary>
     </member>
-    <member name="F:Vuforia.TrackableBehaviour.Status.DETECTED">
+    <member name="F:Vuforia.TrackableBehaviour.Status.LIMITED">
       <summary>
-            The TrackableResult was detected
-            </summary>
-    </member>
-    <member name="F:Vuforia.TrackableBehaviour.Status.TRACKED">
-      <summary>
-            The TrackableResult was tracked
-            </summary>
-    </member>
-    <member name="F:Vuforia.TrackableBehaviour.Status.EXTENDED_TRACKED">
-      <summary>
-            The TrackableResult was tracked while not being visible
+            The tracking is limited.
             </summary>
     </member>
     <member name="F:Vuforia.TrackableBehaviour.Status.DEGRADED">
       <summary>
-            The TrackableResult has a pose of degraded
-            quality (only supported for device pose)
+            The tracking is limited.
+            This is obsolete, please use LIMITED instead.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.Status.DETECTED">
+      <summary>
+            The trackable was detected.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.Status.TRACKED">
+      <summary>
+            The trackable was tracked.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.Status.EXTENDED_TRACKED">
+      <summary>
+            The trackable was extended tracked.
+            </summary>
+    </member>
+    <member name="T:Vuforia.TrackableBehaviour.StatusInfo">
+      <summary>
+            Information on the tracking status. Gives the primary reason about the 
+            problem with tracking (STATUS::NO_POSE or STATUS::LIMITED).
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.StatusInfo.NORMAL">
+      <summary>
+            Status is normal
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.StatusInfo.UNKNOWN">
+      <summary>
+            Unknown reason for limited status.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.StatusInfo.INITIALIZING">
+      <summary>
+            Not enough information yet for accurate tracking.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.StatusInfo.EXCESSIVE_MOTION">
+      <summary>
+            Moving too fast for accurate tracking.
+            </summary>
+    </member>
+    <member name="F:Vuforia.TrackableBehaviour.StatusInfo.INSUFFICIENT_FEATURES">
+      <summary>
+            Not enough features for accurate tracking.
             </summary>
     </member>
     <member name="P:Vuforia.TrackableBehaviour.CurrentStatus">
@@ -4163,260 +4386,6 @@
             If the web cam is currently capturing video
             </summary>
     </member>
-    <member name="T:Vuforia.Word">
-      <summary>
-            A word represents a single element of writing that has been detected.
-            It only contains static information about the word which does not change per frame
-            </summary>
-    </member>
-    <member name="P:Vuforia.Word.StringValue">
-      <summary>
-            Get the string value of the tracked word
-            </summary>
-    </member>
-    <member name="P:Vuforia.Word.Size">
-      <summary>
-            Returns the size of the tracked word in 3D scene units
-            </summary>
-    </member>
-    <member name="M:Vuforia.Word.GetLetterMask">
-      <summary>
-            Returns an image representing the bit mask of the letters in the word.
-            Each pixel in the image is represented by a byte (8-bit value).
-            A value of 255 represents an empty area, i.e. a pixel not covered 
-            by any letter of the word.
-            If a pixel is covered by a letter, then the pixel value represents 
-            the position of that letter in the word, i.e. 0 for the first character,
-            1 for the second, 2 for the third, and so on.
-            </summary>
-    </member>
-    <member name="M:Vuforia.Word.GetLetterBoundingBoxes">
-      <summary>
-            Returns the axis-aligned bounding boxes for all letters of the word. These are defined in the range of [0, 1] which corresponds to the whole bounding box of the word.
-            </summary>
-    </member>
-    <member name="T:Vuforia.WordManager">
-      <summary>
-            This class is used to manage all word trackables
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordManager.GetActiveWordResults">
-      <summary>
-            Returns all currently tracked WordResults
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordManager.GetNewWords">
-      <summary>
-            Returns all words that have been newly detected in the last frame
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordManager.GetLostWords">
-      <summary>
-            Returns all words that have been lost in the last frame and won't be tracked anymore
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordManager.TryGetWordBehaviour(Vuforia.Word,Vuforia.WordBehaviour@)">
-      <summary>
-            Get the word behaviour that is associated with a currently tracked word
-            </summary>
-      <param name="word">trackable</param>
-      <param name="behaviour">resulting word behaviour, might be null if specified word is not associated to a behaviour</param>
-      <returns>returns true if word behaviour exists for specified word trackable</returns>
-    </member>
-    <member name="M:Vuforia.WordManager.GetTrackableBehaviours">
-      <summary>
-            Returns all currently instantiated word behaviours
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordManager.DestroyWordBehaviour(Vuforia.WordBehaviour,System.Boolean)">
-      <summary>
-            Remove a specific word behaviour from list and optionally destroy game object.
-            This might also remove a template, i.e. no further trackables will be augmented for a specific word or for a template
-            </summary>
-    </member>
-    <member name="T:Vuforia.WordResult">
-      <summary>
-            A WordResult provides the current state of a Word.
-            It contains all dynamic information that changes frame-to-frame, 
-            i.e. which is based on the current pose of the word
-            </summary>
-    </member>
-    <member name="P:Vuforia.WordResult.Word">
-      <summary>
-            Get the corresponding Word-object of this trackable
-            </summary>
-    </member>
-    <member name="P:Vuforia.WordResult.Obb">
-      <summary>
-            Get the oriented 2D bounding box of the word in image space
-            </summary>
-    </member>
-    <member name="P:Vuforia.WordResult.Position">
-      <summary>
-            Get the position of the current pose of the trackable
-            </summary>
-    </member>
-    <member name="P:Vuforia.WordResult.Orientation">
-      <summary>
-            Get the rotation of the current pose of the trackable
-            </summary>
-    </member>
-    <member name="P:Vuforia.WordResult.CurrentStatus">
-      <summary>
-            Get the current status of the trackable
-            </summary>
-    </member>
-    <member name="T:Vuforia.WordTemplateMode">
-      <summary>
-            Specifies if a word prefab is used as generic template or only for specific words
-            </summary>
-    </member>
-    <member name="T:Vuforia.WordBehaviour">
-      <summary>
-            This class serves both as an augmentation definition for a Word in the editor
-            as well as a tracked Word result at runtime
-            </summary>
-    </member>
-    <member name="P:Vuforia.WordBehaviour.Word">
-      <summary>
-            The word that this word behaviour augments
-            </summary>
-    </member>
-    <member name="T:Vuforia.WordFilterMode">
-      <summary>
-            Types of filter modes
-            </summary>
-    </member>
-    <member name="F:Vuforia.WordFilterMode.NONE">
-      <summary>
-            Word filtering is disabled
-            </summary>
-    </member>
-    <member name="F:Vuforia.WordFilterMode.BLACK_LIST">
-      <summary>
-            Prevent specific words from being detected
-            </summary>
-    </member>
-    <member name="F:Vuforia.WordFilterMode.WHITE_LIST">
-      <summary>
-            Enable selected words only to be detected
-            </summary>
-    </member>
-    <member name="T:Vuforia.WordList">
-      <summary>
-            This class represents a list of words that can be detected and tracked.
-            Custom words and filter lists can be defined for a word list.
-            
-            The WordList represents the set of detectable Words. This list is
-            loaded from a binary data file using LoadWordListFile.
-            The application may choose to add a small set of additional custom words to
-            the WordList using the APIs below.
-            The filter list allows an application to specify a subset of Words
-            from the WordList that will be detected and tracked. 
-            Note that the TextTracker needs to be stopped prior to making modifications
-            to the WordList.
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.LoadWordListFile(System.String)">
-      <summary>
-            Loads the word list from a binary file in the StreamingAssets directory
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.LoadWordListFile(System.String,Vuforia.VuforiaUnity.StorageType)">
-      <summary>
-            Loads the word list from a binary file at the specified path and storage
-            location
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.AddWordsFromFile(System.String)">
-      <summary>
-            Loads a set of custom words from a plain text in the StreamingAssets directory
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.AddWordsFromFile(System.String,Vuforia.VuforiaUnity.StorageType)">
-      <summary>
-            Loads a set of custom words from a plain text file at the specified 
-            path and storage location
-            The word list is extended with the custom words in the plain text file.
-            No more than 10.000 custom words can be added to the word list. Each word
-            must be between 2-45 characters in length. Returns the
-            number of loaded custom words. The text file shall be encoded in UTF-8.
-            </summary>
-      <returns>Number of words that have been added</returns>
-    </member>
-    <member name="M:Vuforia.WordList.AddWord(System.String)">
-      <summary>
-            Add a single custom word to the word list
-            Use ContainsWord to check if the word is already in the word list prior
-            to calling this.
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.RemoveWord(System.String)">
-      <summary>
-            Remove a custom word from the word list
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.ContainsWord(System.String)">
-      <summary>
-            Returns true if the given word is present in the WordList 
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.UnloadAllLists">
-      <summary>
-            Clears the word list as well as the filter list and releases resources.
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.GetFilterMode">
-      <summary>
-            Returns the filter mode
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.SetFilterMode(Vuforia.WordFilterMode)">
-      <summary>
-            Sets the mode for the filter list
-            The filter list allows an application to specify a subset of Words
-            from the word list that will be detected and tracked. It can do this
-            in two modes of operation. In black list mode, any word in the filter
-            list will be prevented from being detected. In the white list mode,
-            only words in the the filter list can be detected.
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.LoadFilterListFile(System.String)">
-      <summary>
-            Loads the filter list from a plain text file in the StreamingAssets directory
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.LoadFilterListFile(System.String,Vuforia.VuforiaUnity.StorageType)">
-      <summary>
-            Loads the filter list from a plain text file at the specified 
-            path and storage location
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.AddWordToFilterList(System.String)">
-      <summary>
-            Add a single word to the filter list 
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.RemoveWordFromFilterList(System.String)">
-      <summary>
-            Remove a word from the filter list 
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.ClearFilterList">
-      <summary>
-            Clear the filter list
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.GetFilterListWordCount">
-      <summary>
-            Query the number of words in the filter list
-            </summary>
-    </member>
-    <member name="M:Vuforia.WordList.GetFilterListWord(System.Int32)">
-      <summary>
-            Returns the ith element in the filter list
-            </summary>
-    </member>
     <member name="T:Vuforia.EyewearCalibrationProfileManager">
       <summary>
              Class that provides functionality specific to AR on Eyewear devices.
@@ -4637,6 +4606,13 @@
       <summary>
             Implementation of the ITrackableEventHandler function called when the
             tracking state changes.
+            </summary>
+    </member>
+    <member name="T:VuforiaMonoBehaviour">
+      <summary>
+            This is the base class for all MonoBehaviours that are used in Vuforia.
+            If no Behaviours of this type are found in a scene, the VuforiaBehaviour will not be
+            automatically attached at runtime. This means no VideoBackground is rendered.
             </summary>
     </member>
   </members>

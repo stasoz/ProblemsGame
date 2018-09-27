@@ -35,7 +35,7 @@ public class Boarders : MonoBehaviour
         ShowMoney();
         ShowScore();
         ChangeSkin();
-        dirX = CrossPlatformInputManager.GetAxis("Horizontal");
+        dirX = Input.GetAxis("Horizontal");
     }
     private void FixedUpdate()
     {
