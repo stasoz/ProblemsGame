@@ -8,7 +8,8 @@ public class DestroyCoin : MonoBehaviour
     {
         if(collision.tag=="Player")
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            BasicPool.Instance.AddToPool(gameObject);
         }
     }
 }

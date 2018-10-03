@@ -11,53 +11,72 @@ public class ShopScript : MonoBehaviour
     {
         Boarders.Save();
         CurrState();
+        //CurrState();
     }
-    public void Choice1()
+    //public void Choice1()
+    //{
+    //    if (Boarders.allMoney >= 10)
+    //    {
+    //            Boarders.arrValue[0] = 10;
+    //            Boarders.allMoney -= 10;
+    //    }
+    //}
+    //public void Choice2()
+    //{
+    //    if (Boarders.allMoney >= 20)
+    //    {
+    //        Boarders.allMoney -= 20;
+    //        Boarders.arrValue[1] = 20;
+    //    }
+    //}
+    //public void Choice3()
+    //{
+    //    if (Boarders.allMoney >= 30)
+    //    {
+    //        Boarders.allMoney -= 30;
+    //        Boarders.arrValue[2] = 30;
+    //    }
+    //}
+    //public void Choice4()
+    //{
+    //    if (Boarders.allMoney >= 40)
+    //    {
+    //        Boarders.allMoney -= 40;
+    //        Boarders.arrValue[3] = 40;
+    //    }
+    //}
+    //public void Choice5()
+    //{
+    //    if (Boarders.allMoney >= 50)
+    //    {
+    //        Boarders.allMoney -= 50;
+    //        Boarders.arrValue[4] = 50;
+    //    }
+    //}
+    //public void Choice6()
+    //{
+    //    if (Boarders.allMoney >= 60)
+    //    {
+    //        Boarders.allMoney -= 60;
+    //        Boarders.arrValue[5] = 60;
+    //    }
+    //}
+    public void Choice(int value)
     {
-        if (Boarders.allMoney >= 10)
+        int temp = (value+1)*10;
+        if (Boarders.allMoney >=temp)
         {
-                Boarders.arrValue[0] = 10;
-                Boarders.allMoney -= 10;
+            Boarders.arrValue[value] = temp;
+            Boarders.allMoney -= temp;
         }
     }
-    public void Choice2()
+    void CurrStateT(int value)
     {
-        if (Boarders.allMoney >= 20)
+        int temp = (value+1)*10;
+        if(Boarders.arrValue[value] == temp)
         {
-            Boarders.allMoney -= 20;
-            Boarders.arrValue[1] = 20;
-        }
-    }
-    public void Choice3()
-    {
-        if (Boarders.allMoney >= 30)
-        {
-            Boarders.allMoney -= 30;
-            Boarders.arrValue[2] = 30;
-        }
-    }
-    public void Choice4()
-    {
-        if (Boarders.allMoney >= 40)
-        {
-            Boarders.allMoney -= 40;
-            Boarders.arrValue[3] = 40;
-        }
-    }
-    public void Choice5()
-    {
-        if (Boarders.allMoney >= 50)
-        {
-            Boarders.allMoney -= 50;
-            Boarders.arrValue[4] = 50;
-        }
-    }
-    public void Choice6()
-    {
-        if (Boarders.allMoney >= 60)
-        {
-            Boarders.allMoney -= 60;
-            Boarders.arrValue[5] = 60;
+            mainButton[value].SetActive(false);
+            select[value].SetActive(true);
         }
     }
     void CurrState()

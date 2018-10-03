@@ -312,10 +312,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EZ Object Pools\Scripts\EZObjectPool.cs" />
-    <Compile Include="Assets\EZ Object Pools\Scripts\PooledObjects\ParticleSystemDisable.cs" />
-    <Compile Include="Assets\EZ Object Pools\Scripts\PooledObjects\PooledObject.cs" />
-    <Compile Include="Assets\EZ Object Pools\Scripts\PooledObjects\TimedDisable.cs" />
     <Compile Include="Assets\MenuScripts\CurrValues.cs" />
     <Compile Include="Assets\MenuScripts\LoadScene.cs" />
     <Compile Include="Assets\MenuScripts\MenuManager.cs" />
@@ -325,6 +321,8 @@
     <Compile Include="Assets\Scripts\DestroyCoin.cs" />
     <Compile Include="Assets\Scripts\FallEnemy.cs" />
     <Compile Include="Assets\Scripts\Music.cs" />
+    <Compile Include="Assets\Scripts\ObjectPool\BasicPool.cs" />
+    <Compile Include="Assets\Scripts\ObjectPool\SpawnRandomly.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\RestartGame.cs" />
     <Compile Include="Assets\Scripts\Setting\GameSettings.cs" />

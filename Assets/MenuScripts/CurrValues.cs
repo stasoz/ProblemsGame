@@ -8,29 +8,34 @@ public class CurrValues : MonoBehaviour {
     private void Update()
     {
         currMoney.text = Boarders.allMoney.ToString();
+        //Debug.Log(Boarders.currValueOfSkin);
     }
-    public void Choice1()
+    //public void Choice1()
+    //{
+    //    Boarders.currValueOfSkin = 1;
+    //}
+    //public void Choice2()
+    //{
+    //    Boarders.currValueOfSkin = 2;
+    //}
+    //public void Choice3()
+    //{
+    //    Boarders.currValueOfSkin = 3;
+    //}
+    //public void Choice4()
+    //{
+    //    Boarders.currValueOfSkin = 4;
+    //}
+    //public void Choice5()
+    //{
+    //    Boarders.currValueOfSkin = 5;
+    //}
+    //public void Choice6()
+    //{
+    //    Boarders.currValueOfSkin = 6;
+    //}
+    public void Choice(int choiceNum)
     {
-        Boarders.currValueOfSkin = 1;
-    }
-    public void Choice2()
-    {
-        Boarders.currValueOfSkin = 2;
-    }
-    public void Choice3()
-    {
-        Boarders.currValueOfSkin = 3;
-    }
-    public void Choice4()
-    {
-        Boarders.currValueOfSkin = 4;
-    }
-    public void Choice5()
-    {
-        Boarders.currValueOfSkin = 5;
-    }
-    public void Choice6()
-    {
-        Boarders.currValueOfSkin = 6;
+        Boarders.currValueOfSkin = choiceNum;
     }
 }

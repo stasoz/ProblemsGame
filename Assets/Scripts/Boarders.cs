@@ -11,6 +11,7 @@ public class Boarders : MonoBehaviour
     public GameObject background;
     public GameObject restart;
     public GameObject menu;
+    public GameObject spawnObject;
     public static int allMoney;
     public Text money;
     public Text score;
@@ -22,7 +23,7 @@ public class Boarders : MonoBehaviour
     public float dirX;
     public float xMin, xMax, yMin, yMax;
 
-
+    public static int[] currSkin = new int[6];
 
     public void Start()
     {
@@ -39,13 +40,7 @@ public class Boarders : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(dirX * 7f, rb.velocity.y);
-        rb.position = new Vector3
-            (
-                Mathf.Clamp(rb.position.x, xMin, xMax),
-                Mathf.Clamp(rb.position.y, yMin, yMax),
-                0.0f
-            );
+        Move();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -56,6 +51,7 @@ public class Boarders : MonoBehaviour
             background.SetActive(false);
             restart.SetActive(true);
             menu.SetActive(true);
+            spawnObject.SetActive(false);
         }
         if (collision.tag == "Coin")
         {
@@ -69,6 +65,7 @@ public class Boarders : MonoBehaviour
             restart.SetActive(false);
             menu.SetActive(false);
             RestartGame.isClick = false;
+            spawnObject.SetActive(true);
         }
     }
     public void ShowMoney()
@@ -81,41 +78,62 @@ public class Boarders : MonoBehaviour
     }
     public void ChangeSkin()
     {
-        if (currValueOfSkin == 1)
+        #region Skin
+        //if (currValueOfSkin == 1)
+        //{
+        //    rb.GetComponent<SpriteRenderer>().sprite = skins[0];
+        //}
+        //if (currValueOfSkin == 2)
+        //{
+        //    rb.GetComponent<SpriteRenderer>().sprite = skins[1];
+        //}
+        //if (currValueOfSkin == 3)
+        //{
+        //    rb.GetComponent<SpriteRenderer>().sprite = skins[2];
+        //}
+        //if (currValueOfSkin == 4)
+        //{
+        //    rb.GetComponent<SpriteRenderer>().sprite = skins[3];
+        //}
+        //if (currValueOfSkin == 5)
+        //{
+        //    rb.GetComponent<SpriteRenderer>().sprite = skins[4];
+        //}
+        //if (currValueOfSkin == 6)
+        //{
+        //    rb.GetComponent<SpriteRenderer>().sprite = skins[5];
+        //}
+        #endregion
+        if (currValueOfSkin > 0 && currValueOfSkin <= skins.Length - 1)
         {
-            rb.GetComponent<SpriteRenderer>().sprite = skins[0];
-        }
-        if (currValueOfSkin == 2)
-        {
-            rb.GetComponent<SpriteRenderer>().sprite = skins[1];
-        }
-        if (currValueOfSkin == 3)
-        {
-            rb.GetComponent<SpriteRenderer>().sprite = skins[2];
-        }
-        if (currValueOfSkin == 4)
-        {
-            rb.GetComponent<SpriteRenderer>().sprite = skins[3];
-        }
-        if (currValueOfSkin == 5)
-        {
-            rb.GetComponent<SpriteRenderer>().sprite = skins[4];
-        }
-        if (currValueOfSkin == 6)
-        {
-            rb.GetComponent<SpriteRenderer>().sprite = skins[5];
+            rb.GetComponent<SpriteRenderer>().sprite = skins[currValueOfSkin - 1];
         }
     }
     public static void Save()
     {
         PlayerPrefs.SetInt("skin", currValueOfSkin);
         PlayerPrefs.SetInt("money", allMoney);
-        PlayerPrefs.SetInt("value1", arrValue[0]);
-        PlayerPrefs.SetInt("value2", arrValue[1]);
-        PlayerPrefs.SetInt("value3", arrValue[2]);
-        PlayerPrefs.SetInt("value4", arrValue[3]);
-        PlayerPrefs.SetInt("value5", arrValue[4]);
-        PlayerPrefs.SetInt("value6", arrValue[5]);
+        //PlayerPrefs.SetInt("value1", arrValue[0]);
+        //PlayerPrefs.SetInt("value2", arrValue[1]);
+        //PlayerPrefs.SetInt("value3", arrValue[2]);
+        //PlayerPrefs.SetInt("value4", arrValue[3]);
+        //PlayerPrefs.SetInt("value5", arrValue[4]);
+        //PlayerPrefs.SetInt("value6", arrValue[5]);
+        for(int i=0;i<arrValue.Length;i++)
+        {
+            PlayerPrefs.SetInt("value" + i+1.ToString(), arrValue[i]);
+        }
         PlayerPrefs.Save();
     }
+    public void Move()
+    {
+        rb.velocity = new Vector2(dirX * 7f, rb.velocity.y);
+        rb.position = new Vector3
+            (
+                Mathf.Clamp(rb.position.x, xMin, xMax),
+                Mathf.Clamp(rb.position.y, yMin, yMax),
+                0.0f
+            );
+    }
 }
+
